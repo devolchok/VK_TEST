@@ -19,3 +19,17 @@ function getSegments($uri)
 
     return $segments;
 }
+
+function render($templateFilePath, $data = array())
+{
+    if (!file_exists($templateFilePath)) {
+        throw new Exception('Template file doesn\'t exist: ' . $templateFilePath);
+    }
+    extract($data);
+    ob_start();
+    require($templateFilePath);
+    $content = ob_get_contents();
+    ob_end_clean();
+
+    return  $content;
+}

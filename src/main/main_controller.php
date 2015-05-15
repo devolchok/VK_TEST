@@ -2,10 +2,10 @@
 
 function indexAction()
 {
-    echo 'Hello, World';
+    echo renderPage('main:mainpage');
 }
 
 function notFoundAction()
 {
-    echo 'Page not found';
+    echo renderPage('main:not_found_page', array('title' => 'Page not found'));
 }
