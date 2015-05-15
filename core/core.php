@@ -38,6 +38,12 @@ function httpNotFound()
     run('/main/notFound/');
 }
 
+function httpInternalError()
+{
+    header('HTTP/1.0 500 Internal Server Error');
+    run('/main/error/');
+}
+
 /**
  * Рендерит шаблон, заданный в формате <Название модуля>/<Имя шаблона>.
  *

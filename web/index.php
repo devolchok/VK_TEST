@@ -6,4 +6,9 @@ require(ROOT_PATH.'/app/bootstrap.php');
 
 $routes = require(ROOT_PATH.'/app/routes.php');
 
-run($_SERVER['REQUEST_URI'], $routes);
+try {
+    run($_SERVER['REQUEST_URI'], $routes);
+}
+catch(Exception $e) {
+    httpInternalError();
+}
