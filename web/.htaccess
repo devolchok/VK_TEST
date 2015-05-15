@@ -1,0 +1,9 @@
+
+RewriteEngine On
+RewriteBase /
+RewriteCond %{REQUEST_URI} !\.(css|gif|ico|jpg|js|png|swf|txt)$
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule ^ index.php [L]
+
+Header always set X-Frame-Options SAMEORIGIN
