@@ -89,3 +89,20 @@ function renderPage($template, $data = array(), $layoutFilePath = null)
         'content' => $content
     ));
 }
+
+function login($user)
+{
+    session_regenerate_id();
+    $_SESSION['user'] = $user;
+}
+
+function logout()
+{
+    session_regenerate_id();
+    $_SESSION['user'] = null;
+}
+
+function isAuthorized()
+{
+    return isset($_SESSION['user']);
+}
