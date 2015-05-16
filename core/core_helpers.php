@@ -2,6 +2,7 @@
 
 function applyRoutes($originalUri, $routes)
 {
+    // TODO: Маршрутизация требует улучшения
     foreach ($routes as $pattern => $uri) {
         if (preg_match('#^'.$pattern.'#i', $originalUri)) {
             return $uri;

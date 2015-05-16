@@ -1,0 +1,10 @@
+#page {
+    width: 800px;
+}
+#page-content {
+    margin-top: 60px;
+}
+#page-content .form-horizontal {
+    width: 400px;
+    margin: 0 auto;
+}
