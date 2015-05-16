@@ -2,10 +2,14 @@
 
 function registrationAction()
 {
-    echo 'Registration';
+    echo renderPage('auth:registration', array(
+        'title' => 'Регистрация',
+    ));
 }
 
 function loginAction()
 {
-    echo 'Login';
+    echo renderPage('auth:login', array(
+        'title' => 'Вход',
+    ));
 }
