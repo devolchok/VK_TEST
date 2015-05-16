@@ -44,6 +44,18 @@ function httpInternalError()
     run('/main/error/');
 }
 
+function httpRedirect($uri, $permament = false)
+{
+    header('Location: ' . $uri, true, $permament ? 301 : 302);
+    exit;
+}
+
+function outputJson($json)
+{
+    header('Content-Type: application/json');
+    echo json_encode($json);
+}
+
 /**
  * Рендерит шаблон, заданный в формате <Название модуля>/<Имя шаблона>.
  *
@@ -94,15 +106,23 @@ function login($user)
 {
     session_regenerate_id();
     $_SESSION['user'] = $user;
+    $_SESSION['user']['logout_hash'] = generateUniqueId();
 }
 
 function logout()
 {
-    session_regenerate_id();
-    $_SESSION['user'] = null;
+    if (isset($_GET['logout_hash']) && $_GET['logout_hash'] == $_SESSION['user']['logout_hash']) {
+        session_regenerate_id();
+        $_SESSION['user'] = null;
+    }
 }
 
 function isAuthorized()
 {
     return isset($_SESSION['user']);
+}
+
+function generateUniqueId()
+{
+    return md5(uniqid(mt_rand(), true)) . '_' . mt_rand();
 }

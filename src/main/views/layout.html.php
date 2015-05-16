@@ -9,27 +9,34 @@
     <link href="/css/styles.css" rel="stylesheet">
 </head>
 <body>
-    <div id="page" class="container">
+<div id="page" class="container">
 
-        <nav class="navbar navbar-default">
-            <div class="container-fluid">
-                <div class="navbar-header">
-                    <a class="navbar-brand" href="/">Система заказов</a>
-                </div>
+    <nav class="navbar navbar-default">
+        <div class="container-fluid">
+            <div class="navbar-header">
+                <a class="navbar-brand" href="/">Система заказов</a>
+            </div>
 
-                <ul class="nav navbar-nav navbar-right">
+            <ul class="nav navbar-nav navbar-right">
+                <?php if (isAuthorized()) : ?>
+                    <li><a><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;<?php echo $GLOBALS['user']['login']; ?></a></li>
+                    <li><a href="/auth/logout?logout_hash=<?php echo $GLOBALS['user']['logout_hash']; ?>">Выход</a></li>
+                <?php else : ?>
                     <li><a href="/registration/">Регистрация</a></li>
                     <li><a href="/login/">Вход</a></li>
-                </ul>
-            </div>
-        </nav>
+                <?php endif; ?>
 
-        <div class="container-fluid" id="page-content">
-            <?php echo $content; ?>
+            </ul>
         </div>
+    </nav>
+
+    <div class="container-fluid" id="page-content">
+        <?php echo $content; ?>
     </div>
+</div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
+<script src="/js/scripts.js"></script>
 </body>
 </html>
