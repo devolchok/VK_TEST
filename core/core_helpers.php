@@ -26,6 +26,7 @@ function render($templateFilePath, $data = array())
     if (!file_exists($templateFilePath)) {
         throw new Exception('Template file doesn\'t exist: ' . $templateFilePath);
     }
+    global $user;
     extract($data);
     ob_start();
     require($templateFilePath);

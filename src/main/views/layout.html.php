@@ -19,8 +19,8 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <?php if (isAuthorized()) : ?>
-                    <li><a><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;<?php echo $GLOBALS['user']['login']; ?></a></li>
-                    <li><a href="/auth/logout?logout_hash=<?php echo $GLOBALS['user']['logout_hash']; ?>">Выход</a></li>
+                    <li><a><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;<?php echo $user['login']; ?></a></li>
+                    <li><a href="/auth/logout?logout_hash=<?php echo $user['logout_hash']; ?>">Выход</a></li>
                 <?php else : ?>
                     <li><a href="/registration/">Регистрация</a></li>
                     <li><a href="/login/">Вход</a></li>
