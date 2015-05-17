@@ -19,7 +19,7 @@ function run($uri, $routes = array())
     $controllerFile = ROOT_PATH.'/src/'.$controller.'/'.$controller.'_controller.php';
     if (file_exists($controllerFile)) {
         require_once($controllerFile);
-        $actionFunction = $_SERVER['REQUEST_METHOD'] === 'POST' ? $action.'PostAction' : $action.'Action';
+        $actionFunction = isAjax() ? $action.$_SERVER['REQUEST_METHOD'].'Ajax'.'Action' : $action.$_SERVER['REQUEST_METHOD'].'Action';
         if (function_exists($actionFunction)) {
             call_user_func_array($actionFunction, array_slice($segments, 2));
         }

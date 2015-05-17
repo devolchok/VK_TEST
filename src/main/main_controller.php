@@ -1,11 +1,11 @@
 <?php
 
-function indexAction()
+function indexGetAction()
 {
     echo renderPage('main:main_page');
 }
 
-function notFoundAction()
+function notFoundGetAction()
 {
     echo renderPage('main:message_page', array(
         'title' => 'Страница не найдена',
@@ -13,7 +13,7 @@ function notFoundAction()
     ));
 }
 
-function internalErrorAction()
+function internalErrorGetAction()
 {
     echo renderPage('main:message_page', array(
         'title' => 'Произошла ошибка',
@@ -21,7 +21,7 @@ function internalErrorAction()
     ));
 }
 
-function badRequestAction()
+function badRequestGetAction()
 {
     echo renderPage('main:message_page', array(
         'title' => 'Некорректный запрос',

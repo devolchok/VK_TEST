@@ -1,6 +1,6 @@
 <?php
 
-function registrationAction()
+function registrationGetAction()
 {
     if (!isAuthorized()) {
         echo renderPage('auth:registration', array(
@@ -12,7 +12,7 @@ function registrationAction()
     }
 }
 
-function loginAction()
+function loginGetAction()
 {
     if (!isAuthorized()) {
         echo renderPage('auth:login', array(
@@ -24,7 +24,7 @@ function loginAction()
     }
 }
 
-function loginPostAction()
+function loginPostAjaxAction()
 {
     $user = array(
         'id' => 1,
@@ -36,7 +36,7 @@ function loginPostAction()
     ));
 }
 
-function logoutAction()
+function logoutGetAction()
 {
     logout();
     httpRedirect('/');
