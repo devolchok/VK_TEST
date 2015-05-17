@@ -1,6 +1,6 @@
 <?php
 
 return array(
-    '/registration' => '/auth/registration',
-    '/login' => '/auth/login'
+    '/registration/?' => '/auth/registration',
+    '/login/?' => '/auth/login'
 );
