@@ -44,6 +44,12 @@ function httpInternalError()
     run('/main/error/');
 }
 
+function httpBadRequest()
+{
+    header('HTTP/1.0 400 Bad Request');
+    run('/main/badRequest/');
+}
+
 function httpRedirect($uri, $permament = false)
 {
     header('Location: ' . $uri, true, $permament ? 301 : 302);
