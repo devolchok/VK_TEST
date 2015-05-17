@@ -35,19 +35,19 @@ function run($uri, $routes = array())
 function httpNotFound()
 {
     header('HTTP/1.0 404 Not Found');
-    run('/main/notFound/');
+    callHook('notFound');
 }
 
 function httpInternalError()
 {
     header('HTTP/1.0 500 Internal Server Error');
-    run('/main/error/');
+    callHook('internalError');
 }
 
 function httpBadRequest()
 {
     header('HTTP/1.0 400 Bad Request');
-    run('/main/badRequest/');
+    callHook('badRequest');
 }
 
 function httpRedirect($uri, $permament = false)
@@ -60,6 +60,15 @@ function outputJson($json)
 {
     header('Content-Type: application/json');
     echo json_encode($json);
+}
+
+function requireParameters($parameters)
+{
+    foreach ($parameters as $parameter) {
+        if (!isset($_REQUEST[$parameter])) {
+            httpBadRequest();
+        }
+    }
 }
 
 /**

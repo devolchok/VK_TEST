@@ -40,3 +40,11 @@ function isAjax()
 {
     return isset($_SERVER['HTTP_X_REQUESTED_WITH']) && !empty($_SERVER['HTTP_X_REQUESTED_WITH']) && strtolower($_SERVER['HTTP_X_REQUESTED_WITH']) == 'xmlhttprequest';
 }
+
+function callHook($hookName, $parameters = array())
+{
+    $hookFunction = $hookName.'Hook';
+    if (function_exists($hookFunction)) {
+        call_user_func_array($hookFunction, $parameters);
+    }
+}
