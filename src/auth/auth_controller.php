@@ -43,11 +43,15 @@ function registerPostAjaxAction()
         httpBadRequest();
     }
 
-    $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
-    $userType = $_POST['user_type'];
+    load('auth', 'auth_queries');
+    if (getUserByLogin($login)) {
+        $errorMessage = 'Такой логин уже занят.';
+    }
 
     if (!isset($errorMessage)) {
-        query('INSERT INTO users (login, password, type) VALUES ("%s", "%s", "%s")', array($login, $password, $userType));
+        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
+        $userType = $_POST['user_type'];
+        registerUser($login, $password, $userType);
         outputJson(array(
             'status' => 'ok',
             'successMessage' => 'Вы успешно зарегистрировались, теперь Вы можете зайти на сайт.',
@@ -66,9 +70,8 @@ function loginPostAjaxAction()
     requireParameters(array('login', 'password'));
 
     $login = trim($_POST['login']);
-
-    $result = query('SELECT login, password, money, type FROM users WHERE login = "%s" LIMIT 1', array($login));
-    $user = mysqli_fetch_assoc($result);
+    load('auth', 'auth_queries');
+    $user = getUserByLogin($login);
     if (!$user || !password_verify($_POST['password'], $user['password'])) {
         $errorMessage = 'Неверный логин или пароль.';
         outputJson(array(

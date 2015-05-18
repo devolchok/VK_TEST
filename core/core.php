@@ -72,9 +72,9 @@ function requireParameters($parameters)
 }
 
 /**
- * Рендерит шаблон, заданный в формате <Имя модуля>/<Имя шаблона>.
+ * Рендерит шаблон из заданного модуля.
  *
- * @param $template
+ * @param string $template. Формат: <Имя модуля>/<Имя шаблона>.
  * @param array $data
  * @return string
  * @throws Exception
@@ -96,9 +96,9 @@ function renderTemplate($template, $data = array())
 }
 
 /**
- * Рендерит шаблон, заданный в формате <Имя модуля>/<Имя шаблона>, в лейауте.
+ * Рендерит шаблон из заданного модуля в лейауте.
  *
- * @param $template
+ * @param string $template. Формат: <Имя модуля>/<Имя шаблона>.
  * @param array $data
  * @param null $layoutFilePath
  * @return string
@@ -155,4 +155,20 @@ function query($query, $parameters = array(), $serverName = 'default')
     }
 
     return $result;
+}
+
+/**
+ * Загружает файл из модуля.
+ *
+ * @param string $module
+ * @param string $fileName
+ * @throws Exception
+ */
+function load($module, $fileName)
+{
+    $filePath = ROOT_PATH.'/src/'.$module.'/'.$fileName.'.php';
+    if (!file_exists($filePath)) {
+        throw new Exception('File doesn\'t exist: ' . $filePath);
+    }
+    require_once($filePath);
 }
