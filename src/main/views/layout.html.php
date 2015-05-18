@@ -19,7 +19,12 @@
 
             <ul class="nav navbar-nav navbar-right">
                 <?php if (isAuthorized()) : ?>
-                    <li><a><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;<?php echo $user['login']; ?></a></li>
+                    <li class="navbar-text"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;<?php echo $user['login']; ?></li>
+                    <?php if ($user['type'] == 'customer') : ?>
+                        <li class="navbar-text">Ваш баланс: <span id="money"><?php echo $user['money']; ?></span></li>
+                    <?php else : ?>
+                        <li><a href="/money/add/">Ваш баланс: <span id="money"><?php echo $user['money']; ?></span></a></li>
+                    <?php endif; ?>
                     <li><a href="/auth/logout?logout_hash=<?php echo $user['logout_hash']; ?>">Выход</a></li>
                 <?php else : ?>
                     <li><a href="/registration/">Регистрация</a></li>
@@ -37,6 +42,9 @@
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>
 <script src="/lib/bootstrap/js/bootstrap.min.js"></script>
-<script src="/js/scripts.js"></script>
+<script src="/js/common.js"></script>
+<script src="/js/auth.js"></script>
+<script src="/js/tasks.js"></script>
+<script src="/js/money.js"></script>
 </body>
 </html>

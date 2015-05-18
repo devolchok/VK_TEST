@@ -124,6 +124,11 @@ function login($user)
     $_SESSION['user']['logout_hash'] = generateUniqueId();
 }
 
+function updateUser($key, $value)
+{
+    $_SESSION['user'][$key] = $value;
+}
+
 function logout()
 {
     if (isset($_GET['logout_hash']) && $_GET['logout_hash'] == $_SESSION['user']['logout_hash']) {
