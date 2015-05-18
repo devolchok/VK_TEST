@@ -18,6 +18,10 @@ function clearFormError(form) {
     $(form).find('.alert').remove();
 }
 
+function clearForm(form) {
+    $(form).find('input, textarea').val('');
+}
+
 $(document).ajaxError(function(e, jqXHR) {
     handleAjaxError();
 });

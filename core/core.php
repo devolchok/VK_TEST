@@ -163,6 +163,11 @@ function query($query, $parameters = array(), $serverName = 'default')
     return $result;
 }
 
+function lastInsertId($serverName = 'default')
+{
+    return mysqli_insert_id(getDbConnection($serverName));
+}
+
 /**
  * Загружает файл из модуля.
  *

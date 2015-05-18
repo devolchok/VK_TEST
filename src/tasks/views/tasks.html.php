@@ -34,9 +34,11 @@
 
 <?php endif; ?>
 
-<?php foreach ($tasks as $task) : ?>
-    <?php echo renderTemplate('tasks:task', array('task' => $task)); ?>
-<?php endforeach; ?>
+<div id="tasks">
+    <?php foreach ($tasks as $task) : ?>
+        <?php echo renderTemplate('tasks:task', array('task' => $task)); ?>
+    <?php endforeach; ?>
+</div>
 
 <br>
 <button class="btn btn-default center-block" type="submit" data-loading-text="Загрузка..." id="load-tasks-btn">Загрузить еще</button>

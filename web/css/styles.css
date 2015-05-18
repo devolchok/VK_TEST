@@ -9,7 +9,7 @@
     margin: 0 auto;
 }
 .flash-message {
-    position: absolute;
+    position: fixed;
     left: 10px;
     top: 10px;
     font-size: 10px;
@@ -20,6 +20,10 @@ form .alert-danger {
 }
 .task .panel-footer {
     background-color: #FFF;
+}
+.task .panel-body {
+    max-height: 300px;
+    overflow-y: auto;
 }
 #create-task-form.form-horizontal {
     width: auto;

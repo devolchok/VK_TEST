@@ -15,11 +15,10 @@ function addPostAjaxAction()
     }
     load('money', 'money_queries');
     addMoney($user['id'], $money);
-    $actualMoney = getMoney($user['id']);
-    updateUser('money', $actualMoney);
+    callHook('moneyChanged');
     outputJson(array(
         'status' => 'ok',
-        'money' => $actualMoney,
+        'money' => $user['money'],
         'successMessage' => 'Ваш счет пополнен.'
     ));
 }
