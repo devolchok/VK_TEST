@@ -83,16 +83,8 @@ function renderTemplate($template, $data = array())
 {
     list($module, $templateName) = explode(':', $template);
     $templateFilePath = ROOT_PATH.'/src/'.$module.'/views/'.$templateName.'.html.php';
-    if (!file_exists($templateFilePath)) {
-        throw new Exception('Template file doesn\'t exist: ' . $templateFilePath);
-    }
-    extract($data);
-    ob_start();
-    require($templateFilePath);
-    $content = ob_get_contents();
-    ob_end_clean();
 
-    return  $content;
+    return render($templateFilePath, $data);
 }
 
 /**
@@ -147,6 +139,15 @@ function generateUniqueId()
     return md5(uniqid(mt_rand(), true)).'_'.mt_rand();
 }
 
+/**
+ * Выполняет запрос к БД на заданный сервер.
+ *
+ * @param string $query
+ * @param array $parameters
+ * @param string $serverName
+ * @return bool|mysqli_result
+ * @throws Exception
+ */
 function query($query, $parameters = array(), $serverName = 'default')
 {
     foreach ($parameters as &$parameter) {

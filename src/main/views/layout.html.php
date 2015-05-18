@@ -20,7 +20,7 @@
             <ul class="nav navbar-nav navbar-right">
                 <?php if (isAuthorized()) : ?>
                     <li class="navbar-text"><span class="glyphicon glyphicon-user"></span>&nbsp;&nbsp;<?php echo $user['login']; ?></li>
-                    <?php if ($user['type'] == 'customer') : ?>
+                    <?php if ($user['type'] == 'performer') : ?>
                         <li class="navbar-text">Ваш баланс: <span id="money"><?php echo $user['money']; ?></span></li>
                     <?php else : ?>
                         <li><a href="/money/add/">Ваш баланс: <span id="money"><?php echo $user['money']; ?></span></a></li>
@@ -38,6 +38,7 @@
     <div class="container-fluid" id="page-content">
         <?php echo $content; ?>
     </div>
+    <br><br>
 </div>
 
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.2/jquery.min.js"></script>

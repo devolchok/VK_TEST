@@ -15,7 +15,18 @@
     font-size: 10px;
     padding: 10px;
 }
-
 form .alert-danger {
     font-size: 12px;
+}
+.task .panel-footer {
+    background-color: #FFF;
+}
+#create-task-form.form-horizontal {
+    width: auto;
+    background-color: #F5F5F5;
+    padding: 20px 10px 10px;
+    margin: 0 0 20px;
+    border: 1px solid #DDD;
+    border-radius: 5px;
+    display: none;
 }

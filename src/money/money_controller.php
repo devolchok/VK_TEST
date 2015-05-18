@@ -13,7 +13,6 @@ function addPostAjaxAction()
     if ($money <= 0) {
         httpBadRequest();
     }
-    load('auth', 'auth_queries');
     load('money', 'money_queries');
     addMoney($user['id'], $money);
     $actualMoney = getMoney($user['id']);
