@@ -10,5 +10,6 @@ try {
     run($_SERVER['REQUEST_URI'], $routes);
 }
 catch(Exception $e) {
+    error_log($e->getMessage());
     httpInternalError();
 }

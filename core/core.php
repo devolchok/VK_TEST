@@ -65,14 +65,14 @@ function outputJson($json)
 function requireParameters($parameters)
 {
     foreach ($parameters as $parameter) {
-        if (!isset($_REQUEST[$parameter])) {
+        if (empty($_REQUEST[$parameter])) {
             httpBadRequest();
         }
     }
 }
 
 /**
- * Рендерит шаблон, заданный в формате <Название модуля>/<Имя шаблона>.
+ * Рендерит шаблон, заданный в формате <Имя модуля>/<Имя шаблона>.
  *
  * @param $template
  * @param array $data
@@ -96,7 +96,7 @@ function renderTemplate($template, $data = array())
 }
 
 /**
- * Рендерит шаблон, заданный в формате <Название модуля>/<Имя шаблона>, в лейауте.
+ * Рендерит шаблон, заданный в формате <Имя модуля>/<Имя шаблона>, в лейауте.
  *
  * @param $template
  * @param array $data
@@ -139,5 +139,15 @@ function isAuthorized()
 
 function generateUniqueId()
 {
-    return md5(uniqid(mt_rand(), true)) . '_' . mt_rand();
+    return md5(uniqid(mt_rand(), true)).'_'.mt_rand();
+}
+
+function query($queryString, $serverName = 'default')
+{
+    $result = mysqli_query(getDbConnection($serverName), $queryString);
+    if (!$result) {
+        throw new Exception('Db error: '.mysqli_error(getDbConnection($serverName)));
+    }
+
+    return $result;
 }
