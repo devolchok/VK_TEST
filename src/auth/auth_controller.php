@@ -24,24 +24,6 @@ function loginGetAction()
     }
 }
 
-function loginPostAjaxAction()
-{
-    $user = array(
-        'id' => 1,
-        'login' => 'AsiX',
-    );
-    login($user);
-    outputJson(array(
-        'status' => 'ok'
-    ));
-}
-
-function logoutGetAction()
-{
-    logout();
-    httpRedirect('/');
-}
-
 function registerPostAjaxAction()
 {
     requireParameters(array('login', 'password', 'user_type'));
@@ -65,10 +47,10 @@ function registerPostAjaxAction()
     $userType = $_POST['user_type'];
 
     if (!isset($errorMessage)) {
-        query(sprintf('INSERT INTO users (login, password, type) VALUES("%s", "%s", "%s")', $login, $password, $userType));
+        query('INSERT INTO users (login, password, type) VALUES ("%s", "%s", "%s")', array($login, $password, $userType));
         outputJson(array(
             'status' => 'ok',
-            'successMessage' => 'Вы успешно зарегистрировались, теперь Вы можете зайти на сайт.   ',
+            'successMessage' => 'Вы успешно зарегистрировались, теперь Вы можете зайти на сайт.',
         ));
     }
     else {
@@ -77,4 +59,34 @@ function registerPostAjaxAction()
             'errorMessage' => $errorMessage,
         ));
     }
+}
+
+function loginPostAjaxAction()
+{
+    requireParameters(array('login', 'password'));
+
+    $login = trim($_POST['login']);
+
+    $result = query('SELECT login, password, money, type FROM users WHERE login = "%s" LIMIT 1', array($login));
+    $user = mysqli_fetch_assoc($result);
+    if (!$user || !password_verify($_POST['password'], $user['password'])) {
+        $errorMessage = 'Неверный логин или пароль.';
+        outputJson(array(
+            'status' => 'error',
+            'errorMessage' => $errorMessage,
+        ));
+    }
+    else {
+        unset($user['password']);
+        login($user);
+        outputJson(array(
+            'status' => 'ok'
+        ));
+    }
+}
+
+function logoutGetAction()
+{
+    logout();
+    httpRedirect('/');
 }

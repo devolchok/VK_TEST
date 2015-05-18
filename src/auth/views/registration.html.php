@@ -1,8 +1,8 @@
 <form class="form-horizontal" id="registration-form">
     <div class="form-group">
-        <label for="inputEmail" class="col-sm-2 control-label">Логин</label>
+        <label for="inputLogin" class="col-sm-2 control-label">Логин</label>
         <div class="col-sm-10">
-            <input type="text" class="form-control" id="inputEmail" placeholder="Логин" name="login" maxlength="20">
+            <input type="text" class="form-control" id="inputLogin" placeholder="Логин" name="login" maxlength="20">
         </div>
     </div>
     <div class="form-group">

@@ -1,15 +1,26 @@
 $(document).ready(function() {
 
     $('#login-form').submit(function() {
-        var data = $(this).serialize();
+        var _this = this;
+        clearFormError(this);
+        var data = $(this).serializeObject();
+        if (!data.login || !data.password) {
+            addFormError('Не все поля заполнены.', this);
+            return false;
+        }
+        $(this).find('button[type=submit]').button('loading');
         $.post('/auth/login/', data)
             .done(function(response) {
                 if (response.status == 'ok') {
                     window.location.replace('/');
                 }
+                else {
+                    addFormError(response.errorMessage, _this);
+                    $(_this).find('button[type=submit]').button('reset');
+                }
             })
             .fail(function() {
-                handleAjaxError();
+                $(_this).find('button[type=submit]').button('reset');
             }
         );
 

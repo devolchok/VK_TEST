@@ -57,7 +57,7 @@ function getDbConnection($serverName)
         if (!$GLOBALS['dbConnections'][$serverName]) {
             throw new Exception('Can\'t connect to host '.$config['db'][$serverName]['host'].' ('.mysqli_connect_error().')');
         }
-        query('SET NAMES utf8', $serverName);
+        query('SET NAMES utf8', array(), $serverName);
     }
 
     return $GLOBALS['dbConnections'][$serverName];

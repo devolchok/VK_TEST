@@ -142,8 +142,13 @@ function generateUniqueId()
     return md5(uniqid(mt_rand(), true)).'_'.mt_rand();
 }
 
-function query($queryString, $serverName = 'default')
+function query($query, $parameters = array(), $serverName = 'default')
 {
+    foreach ($parameters as &$parameter) {
+        $parameter = mysqli_real_escape_string(getDbConnection($serverName), $parameter);
+    }
+    array_unshift($parameters, $query);
+    $queryString = call_user_func_array('sprintf', $parameters);
     $result = mysqli_query(getDbConnection($serverName), $queryString);
     if (!$result) {
         throw new Exception('Db error: '.mysqli_error(getDbConnection($serverName)));
