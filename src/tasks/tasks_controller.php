@@ -70,11 +70,13 @@ function performPostAjaxAction()
     requireParameters(array('taskId'));
     $taskId = intval($_POST['taskId']);
     load('tasks', 'tasks_queries');
+    load('money', 'money_queries');
+    $money = getMoney($user['id']);
     performTask($user['id'], $taskId);
     updateUserMoney();
     outputJson(array(
         'status' => 'ok',
-        'successMessage' => 'Заказ выполнен.',
-        'money' => $user['money']
+        'successMessage' => 'Заказ выполнен. Зачислено: '.round($user['money'] - $money, 2),
+        'money' => $user['money'],
     ));
 }
