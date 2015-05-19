@@ -2,32 +2,30 @@
 
 function tasksListGetAction()
 {
-    $tasks = array(
-        array(
-            'id' => 1,
-            'title' => 'task 1',
-            'description' => 'task 1 description',
-            'cost' => '5.00',
-            'user_login' => 'hawx',
-        ),
-        array(
-            'id' => 2,
-            'title' => 'Задача 2',
-            'description' => 'описание 2 задачи',
-            'cost' => '2.00',
-            'user_login' => 'hawx5',
-        ),
-        array(
-            'id' => 3,
-            'title' => 'Задача 3',
-            'description' => 'task 3 description',
-            'cost' => '19.00',
-            'user_login' => 'hawx10',
-        ),
-    );
+    load('tasks', 'tasks_queries');
+    $tasks = getTasks();
 
     echo renderPage('tasks:tasks', array(
         'tasks' => $tasks,
+        'showMoreBtn' => count($tasks) == TASK_ITEMS_PER_PAGE,
+    ));
+}
+
+function getGetAjaxAction()
+{
+    requireParameters(array('lastTaskId'));
+    $lastTaskId = intval($_GET['lastTaskId']);
+    load('tasks', 'tasks_queries');
+    $tasks = getTasks($lastTaskId);
+    $html = '';
+    foreach ($tasks as $task) {
+        $html .= renderTemplate('tasks:task', array('task' => $task));
+    }
+
+    outputJson(array(
+        'status' => 'ok',
+        'html' => $html,
+        'showMoreBtn' => count($tasks) == TASK_ITEMS_PER_PAGE
     ));
 }
 
@@ -49,7 +47,7 @@ function postPostAjaxAction()
           'description' => trim($_POST['description']),
           'cost' => trim($_POST['cost']),
         ));
-        callHook('moneyChanged');
+        updateUserMoney();
         outputJson(array(
             'status' => 'ok',
             'html' => renderTemplate('tasks:task', array('task' => getTask($taskId))),

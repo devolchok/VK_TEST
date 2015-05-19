@@ -35,6 +35,9 @@ $(document).ready(function() {
                     $('#cancel-creating-task-btn').click();
                     $('#money').text(response.money);
                     $('#tasks').prepend(response.html);
+                    if ($('#no-tasks').size()) {
+                        $('#no-tasks').remove();
+                    }
                 }
                 else {
                     addFormError(response.errorMessage, _this);
@@ -46,6 +49,30 @@ $(document).ready(function() {
         );
 
         return false;
+    });
+
+    $('#load-tasks-btn').click(function() {
+        var _this = this;
+       var lastTaskId = $('#tasks .task:last').data('taskId');
+        $(this).button('loading');
+        $.get('/tasks/get/', {'lastTaskId' : lastTaskId})
+            .done(function(response) {
+                if (response.status == 'ok') {
+                    if (response.html) {
+                        $('#tasks').append(response.html);
+                        if (response.showMoreBtn === false) {
+                            $(_this).remove();
+                        }
+                    }
+                    else {
+                        $(_this).remove();
+                    }
+                }
+            })
+            .always(function() {
+                $(_this).button('reset');
+            }
+        );
     });
 
 });

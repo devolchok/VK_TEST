@@ -40,5 +40,11 @@
     <?php endforeach; ?>
 </div>
 
-<br>
-<button class="btn btn-default center-block" type="submit" data-loading-text="Загрузка..." id="load-tasks-btn">Загрузить еще</button>
+<?php if (!count($tasks)) : ?>
+    <div id="no-tasks">В системе нет задач.</div>
+<?php endif; ?>
+
+<?php if ($showMoreBtn) : ?>
+    <br>
+    <button class="btn btn-default center-block" type="submit" data-loading-text="Загрузка..." id="load-tasks-btn">Загрузить еще</button>
+<?php endif; ?>

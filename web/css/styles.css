@@ -34,3 +34,6 @@ form .alert-danger {
     border-radius: 5px;
     display: none;
 }
+#no-tasks {
+    margin-top: 20px;
+}
