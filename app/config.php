@@ -14,4 +14,5 @@ $config = array(
             'password' => 'miamiheat',
         ),
     ),
+    'commission' => 0.15,
 );

@@ -45,7 +45,7 @@ function postPostAjaxAction()
         $taskId = postTask($user['id'], $user['login'], array(
           'title' => trim($_POST['title']),
           'description' => trim($_POST['description']),
-          'cost' => trim($_POST['cost']),
+          'cost' => $cost,
         ));
         updateUserMoney();
         outputJson(array(
@@ -61,4 +61,20 @@ function postPostAjaxAction()
             'errorMessage' => $errorMessage,
         ));
     }
+}
+
+function performPostAjaxAction()
+{
+    global $user;
+
+    requireParameters(array('taskId'));
+    $taskId = intval($_POST['taskId']);
+    load('tasks', 'tasks_queries');
+    performTask($user['id'], $taskId);
+    updateUserMoney();
+    outputJson(array(
+        'status' => 'ok',
+        'successMessage' => 'Заказ выполнен.',
+        'money' => $user['money']
+    ));
 }

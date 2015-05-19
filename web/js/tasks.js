@@ -75,4 +75,23 @@ $(document).ready(function() {
         );
     });
 
+    $('#tasks').on('click', '.perform-task-btn', function() {
+        var _this = this;
+        var $task = $(this).parents('.task:first');
+        var taskId = $task.data('taskId');
+        $(this).button('loading');
+        $.post('/tasks/perform/', {'taskId' : taskId})
+            .done(function(response) {
+                if (response.status == 'ok') {
+                    $('#money').text(response.money);
+                    flashMessage(response.successMessage, 'success');
+                    $task.fadeOut(300, function(){ $(this).remove();});
+                }
+            })
+            .always(function() {
+                $(_this).button('reset');
+            }
+        );
+    });
+
 });

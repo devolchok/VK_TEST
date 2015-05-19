@@ -2,7 +2,14 @@
 
 function addMoney($userId, $money)
 {
-    query('UPDATE users SET money = money + %d WHERE id = %d LIMIT 1', array($money, $userId));
+    mysqli_autocommit(getDbConnection(), false);
+    query('UPDATE users SET money = money + %f WHERE id = %d LIMIT 1', array($money, $userId));
+    query('UPDATE system SET money = money + %f', array($money));
+    $commitResult = mysqli_commit(getDbConnection());
+
+    if (!$commitResult) {
+        httpInternalError();
+    }
 }
 
 function getMoney($userId)

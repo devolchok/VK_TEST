@@ -2,8 +2,8 @@ function handleAjaxError() {
     flashMessage('Произошла ошибка.', 'danger');
 }
 
-function flashMessage(errorMessage, type) {
-    var $flashMessage = $('<div class="alert alert-' + type + ' flash-message">' + errorMessage + '</div>');
+function flashMessage(message, type) {
+    var $flashMessage = $('<div class="alert alert-' + type + ' flash-message">' + message + '</div>');
     $('body').append($flashMessage);
     setTimeout(function() {
         $flashMessage.remove();

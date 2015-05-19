@@ -12,7 +12,7 @@
             <span class="text-muted">Автор:</span> <span class="label label-default"><?php echo $task['user_login']; ?></span>
         </div>
         <?php if ($user['type'] == 'performer') : ?>
-            <button type="button" class="btn btn-primary btn-xs pull-right" data-loading-text="Загрузка...">Выполнить</button>
+            <button type="button" class="btn btn-primary btn-xs pull-right perform-task-btn" data-loading-text="Загрузка...">Выполнить</button>
         <?php endif; ?>
         <div class="clearfix"></div>
     </div>

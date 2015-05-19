@@ -163,9 +163,18 @@ function query($query, $parameters = array(), $serverName = 'default')
     return $result;
 }
 
-function lastInsertId($serverName = 'default')
+function getDbConnection($serverName = 'default')
 {
-    return mysqli_insert_id(getDbConnection($serverName));
+    global $config;
+    if (!isset($GLOBALS['dbConnections'][$serverName])) {
+        $GLOBALS['dbConnections'][$serverName] = mysqli_connect($config['db'][$serverName]['host'], $config['db'][$serverName]['username'], $config['db'][$serverName]['password'], $config['db'][$serverName]['dbname']);
+        if (!$GLOBALS['dbConnections'][$serverName]) {
+            throw new Exception('Can\'t connect to host '.$config['db'][$serverName]['host'].' ('.mysqli_connect_error().')');
+        }
+        query('SET NAMES utf8', array(), $serverName);
+    }
+
+    return $GLOBALS['dbConnections'][$serverName];
 }
 
 /**
