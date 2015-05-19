@@ -15,7 +15,7 @@ function addPostAjaxAction()
     }
     load('money', 'money_queries');
     addMoney($user['id'], $money);
-    callHook('moneyChanged');
+    updateUserMoney();
     outputJson(array(
         'status' => 'ok',
         'money' => $user['money'],

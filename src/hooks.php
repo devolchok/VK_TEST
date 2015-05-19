@@ -23,11 +23,3 @@ function badRequestHook()
         'message' => 'Некорректный запрос',
     ));
 }
-
-function moneyChangedHook()
-{
-    global $user;
-    $actualMoney = getMoney($user['id']);
-    $user['money'] = $actualMoney;
-    updateUser('money', $actualMoney);
-}
