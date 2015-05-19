@@ -21,6 +21,10 @@ function run($uri, $routes = array())
         require_once($controllerFile);
         $actionFunction = isAjax() ? $action.$_SERVER['REQUEST_METHOD'].'Ajax'.'Action' : $action.$_SERVER['REQUEST_METHOD'].'Action';
         if (function_exists($actionFunction)) {
+            if ($_SERVER['REQUEST_METHOD'] == 'POST' && isAuthorized() && !verifyCsrfToken()) {
+                httpForbidden();
+                exit;
+            }
             call_user_func_array($actionFunction, array_slice($segments, 2));
         }
         else {
@@ -36,6 +40,12 @@ function httpNotFound()
 {
     header('HTTP/1.0 404 Not Found');
     callHook('notFound');
+}
+
+function httpForbidden()
+{
+    header('HTTP/1.0 403 Forbidden');
+    callHook('forbidden');
 }
 
 function httpInternalError()
@@ -113,7 +123,7 @@ function login($user)
 {
     session_regenerate_id();
     $_SESSION['user'] = $user;
-    $_SESSION['user']['logout_hash'] = generateUniqueId();
+    $_SESSION['csrf_token'] = generateUniqueId();
 }
 
 function updateUser($key, $value)
@@ -123,7 +133,7 @@ function updateUser($key, $value)
 
 function logout()
 {
-    if (isset($_GET['logout_hash']) && $_GET['logout_hash'] == $_SESSION['user']['logout_hash']) {
+    if (verifyCsrfToken()) {
         session_regenerate_id();
         $_SESSION['user'] = null;
     }

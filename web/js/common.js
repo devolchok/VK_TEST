@@ -29,7 +29,10 @@ $(document).ajaxError(function(e, jqXHR) {
 $.ajaxSetup({
     cache: false,
     timeout: 10000,
-    dataType: 'json'
+    dataType: 'json',
+    data: {
+        'csrf_token': $('meta[name="csrf_token"]').attr('content')
+    }
 });
 
 $.fn.serializeObject = function () {

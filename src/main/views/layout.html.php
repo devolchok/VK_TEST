@@ -4,6 +4,9 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <?php if ($user) : ?>
+        <meta name="csrf_token" content="<?php echo $_SESSION['csrf_token']; ?>" />
+    <?php endif; ?>
     <title>Система заказов<?php if ($title) echo ' | '.$title ?></title>
     <link href="/lib/bootstrap/css/bootstrap.min.css" rel="stylesheet">
     <link href="/css/styles.css" rel="stylesheet">
@@ -25,7 +28,7 @@
                     <?php else : ?>
                         <li><a href="/money/add/">Ваш баланс: <span id="money"><?php echo $user['money']; ?></span></a></li>
                     <?php endif; ?>
-                    <li><a href="/auth/logout?logout_hash=<?php echo $user['logout_hash']; ?>">Выход</a></li>
+                    <li><a href="/auth/logout?csrf_token=<?php echo $_SESSION['csrf_token']; ?>">Выход</a></li>
                 <?php else : ?>
                     <li><a href="/registration/">Регистрация</a></li>
                     <li><a href="/login/">Вход</a></li>

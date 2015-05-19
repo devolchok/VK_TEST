@@ -48,3 +48,8 @@ function callHook($hookName, $parameters = array())
         call_user_func_array($hookFunction, $parameters);
     }
 }
+
+function verifyCsrfToken()
+{
+    return !empty($_REQUEST['csrf_token']) && $_REQUEST['csrf_token'] === $_SESSION['csrf_token'];
+}

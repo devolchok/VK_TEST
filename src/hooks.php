@@ -23,3 +23,11 @@ function badRequestHook()
         'message' => 'Некорректный запрос',
     ));
 }
+
+function forbiddenHook()
+{
+    echo renderPage('main:message_page', array(
+        'title' => 'Запрещено',
+        'message' => 'Запрещено',
+    ));
+}
